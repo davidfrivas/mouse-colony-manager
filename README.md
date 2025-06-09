@@ -17,7 +17,7 @@ A full stack web application that helps research labs collaboratively manage mou
 
 ## ER Diagram
 
-![ER Diagram](./docs/ER-diagram.pdf)
+![ER Diagram](./docs/ER-diagram.png)
 
 ---
 
