@@ -1,0 +1,36 @@
+{
+  "name": "mouse-colony-manager",
+  "version": "1.0.0",
+  "description": "Web app for managing lab mouse colonies and sharing mice across research groups.",
+  "keywords": [
+    "mouse",
+    "colony",
+    "lab",
+    "research",
+    "protocol",
+    "genotype",
+    "strain",
+    "mern",
+    "mongodb",
+    "express",
+    "react",
+    "nodejs",
+    "mongoose",
+    "fullstack"
+  ],
+  "license": "MIT",
+  "author": "David Rivas",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
