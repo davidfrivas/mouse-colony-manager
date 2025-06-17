@@ -1,13 +1,15 @@
 require("dotenv").config(); // Load environment variables
 
 // Import required modules
-const express = require("express");
-const mongoose = require("mongoose");
-const path = require("path");
+const express = require("express"); // Express web framework
+const mongoose = require("mongoose"); // Mongoose Object Data Modeling library
+const path = require("path"); // Node.js utility for handling file paths
 
+// Import route handlers
 const userRoutes = require('./server/routes/user');
 const logEntryRoutes = require('./server/routes/log-entry');
 
+// Connect to MongoDB using credentials from .env
 mongoose.connect(process.env.dbURL)
   .then(() => console.log("DB Connected!"))
   .catch(error => console.log("MongoDB connection error:", error));
@@ -31,14 +33,15 @@ app.use(function (req, res, next) {
 // Serve static files (CSS, JS, images, etc.) from the 'public' directory
 app.use(express.static(path.join(__dirname, "public")));
 
-// Serve the index.html file on the root path
+// Serve the index.html file when root URL is accessed
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "public", "index.html"))
 );
 
+// Use route handlers for /user and /log-entry paths
 app.use('/user', userRoutes);
 app.use('/log-entry', logEntryRoutes);
 
-// Start the server on specified port (default: 3000)
+// Start the server on specified port (default to 3000 if not desfined)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
