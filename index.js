@@ -1,6 +1,16 @@
+require("dotenv").config(); // Load environment variables
+
 // Import required modules
 const express = require("express");
+const mongoose = require("mongoose");
 const path = require("path");
+
+const userRoutes = require('./server/routes/user');
+const logEntryRoutes = require('./server/routes/log-entry');
+
+mongoose.connect(process.env.dbURL)
+  .then(() => console.log("DB Connected!"))
+  .catch(error => console.log("MongoDB connection error:", error));
 
 const app = express(); // Create instance of Express app
 
@@ -25,6 +35,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "public", "index.html"))
 );
+
+app.use('/user', userRoutes);
+app.use('/log-entry', logEntryRoutes);
 
 // Start the server on specified port (default: 3000)
 const PORT = process.env.PORT || 3000;
