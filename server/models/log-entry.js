@@ -13,7 +13,7 @@ const logEntrySchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   labId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lab', required: true },
   mice: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Mice', required: true }],
-  content: {type: String, required: true },
+  content: {type: String, required: true, trim: true },
   createdAt: { type: Date, default: Date.now }
 });
 
