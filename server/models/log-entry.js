@@ -10,8 +10,8 @@ const ERRORS = {
 // ========== SCHEMA & MODEL ==========
 // Create schema for entity
 const logEntrySchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  labId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lab' },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  labId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lab', required: true },
   mice: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Mice', required: true }],
   content: {type: String, required: true },
   createdAt: { type: Date, default: Date.now }
