@@ -25,7 +25,7 @@ const User = mongoose.model("User", userSchema); // Create model of schema
 // ========== HELPER FUNCTIONS ==========
 async function getUser(username) {
   return await User.findOne({ "username": username });
-};
+}
 
 // ========== CRUD OPERATIONS ==========
 
@@ -53,7 +53,7 @@ async function register(username, email, password) {
     email,
     password: hashedPassword
   });
-};
+}
 
 // READ/LOGIN a user
 async function login(username, password) {
@@ -75,7 +75,7 @@ async function login(username, password) {
   }
 
   return user;
-};
+}
 
 // UPDATE password
 async function updatePassword(id, password) {
@@ -93,7 +93,7 @@ async function updatePassword(id, password) {
     { password: hashedPassword },
     { new: true }
   );
-};
+}
 
 // DELETE a user
 async function deleteUser(id) {
@@ -104,7 +104,7 @@ async function deleteUser(id) {
 
   const result = await User.deleteOne({ "_id": id });
   return result.deletedCount > 0;
-};
+}
 
 // Export all functions for routes
 module.exports = { register, login, updatePassword, deleteUser, getUser };

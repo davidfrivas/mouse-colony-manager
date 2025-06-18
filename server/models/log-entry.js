@@ -56,7 +56,7 @@ async function postLogEntry(userId, labId, mice, content) {
     mice: miceArray,
     content: content.trim()
   });
-};
+}
 
 // READ a single log entry by ID
 async function readLogEntry(entryId) {
@@ -75,7 +75,7 @@ async function readLogEntry(entryId) {
   }
 
   return entry;
-};
+}
 
 // READ all log entries for a specific mouse
 async function readLogEntries(mouseId) {
@@ -93,7 +93,7 @@ async function readLogEntries(mouseId) {
     .populate('labId', 'name')
     .populate('mice', 'name strain')
     .sort({ createdAt: -1 }); // Most recent first
-};
+}
 
 // READ all log entries for a lab
 async function readLogEntriesByLab(labId) {
@@ -110,7 +110,7 @@ async function readLogEntriesByLab(labId) {
     .populate('userId', 'username email')
     .populate('mice', 'name strain')
     .sort({ createdAt: -1 }); // Most recent first
-};
+}
 
 // READ all log entries for a user
 async function readLogEntriesByUser(userId) {
@@ -127,7 +127,7 @@ async function readLogEntriesByUser(userId) {
     .populate('labId', 'name')
     .populate('mice', 'name strain')
     .sort({ createdAt: -1 }); // Most recent first
-};
+}
 
 // UPDATE a log entry
 async function updateLogEntry(entryId, content) {
@@ -153,7 +153,7 @@ async function updateLogEntry(entryId, content) {
   }
 
   return updatedEntry;
-};
+}
 
 // DELETE a log entry
 async function deleteLogEntry(entryId) {
@@ -168,7 +168,7 @@ async function deleteLogEntry(entryId) {
 
   const result = await LogEntry.deleteOne({ _id: entryId });
   return result.deletedCount > 0;
-};
+}
 
 
 // Export all functions for routes

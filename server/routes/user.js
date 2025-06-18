@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require('../models/user') // Access functions in User model
+const User = require('../models/user'); // Access functions in User model
 const router = express.Router();
 
 // Helper function to safely return user without password
@@ -7,7 +7,7 @@ function sanitizeUser(user) {
   const userObj = user.toObject ? user.toObject() : user;
   const { password, ...safeUser } = userObj;
   return safeUser;
-};
+}
 
 // Helper function to determine appropriate error status
 function getErrorStatus(error) {
@@ -24,7 +24,7 @@ function getErrorStatus(error) {
   }
 
   return 500; // Internal server error - unexpected errors
-};
+}
 
 // Create routes to access database
 router
