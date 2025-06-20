@@ -8,6 +8,7 @@ const path = require("path"); // Node.js utility for handling file paths
 // Import route handlers
 const userRoutes = require('./server/routes/user');
 const logEntryRoutes = require('./server/routes/log-entry');
+const mouseRoutes = require('./server/routes/mouse');
 
 // Connect to MongoDB using credentials from .env
 mongoose.connect(process.env.dbURL)
@@ -41,6 +42,7 @@ app.get("/", (req, res) =>
 // Use route handlers for /user and /log-entry paths
 app.use('/user', userRoutes);
 app.use('/log-entry', logEntryRoutes);
+app.use('/mouse', mouseRoutes);
 
 // Start the server on specified port (default to 3000 if not desfined)
 const PORT = process.env.PORT || 3000;
