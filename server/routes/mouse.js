@@ -154,7 +154,7 @@ router
   .put('/update-notes/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      const { notes } = requestAnimationFrame.body;
+      const { notes } = req.body;
 
       // Input validation
       if (!id) {
@@ -164,7 +164,7 @@ router
         return res.status(400).send({ message: 'Notes are required' });
       }
 
-      const updatedMouse = await Mouse.updatedMouseNotes(id, notes);
+      const updatedMouse = await Mouse.updateMouseNotes(id, notes);
 
       if (!updatedMouse) {
         return res.status(404).send({ message: 'Mouse not found' });
