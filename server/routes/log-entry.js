@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require('../models/log-entry') // Access functions in LogEntry model
+const LogEntry = require('../models/log-entry') // Access functions in LogEntry model
 const router = express.Router();
 
 // Helper function to determine appropriate error status
