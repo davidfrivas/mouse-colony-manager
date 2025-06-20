@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require('../models/mouse'); // Access functions in Mouse model
+const Mouse = require('../models/mouse'); // Access functions in Mouse model
 const router = express.Router();
 
 
@@ -49,7 +49,7 @@ router
   })
 
   // READ mouse info by name
-  .get('/mouse/:name', async (req, res) => {
+  .get('/name/:name', async (req, res) => {
     try {
       const { name } = req.params;
 
