@@ -107,8 +107,8 @@ async function mouseInfo(name) {
 
   // Find mouse
   const mouse = await Mouse.findOne({ name })
-    .populate('labId', 'name')
-    .populate('protocolId', 'title description')
+    //.populate('labId', 'name')
+    //.populate('protocolId', 'title description')
     .populate('userId', 'username email')
     .populate('motherId', 'name')
     .populate('fatherId', 'name')
@@ -130,7 +130,7 @@ async function getMiceByLab(labId) {
   }
 
   return await Mouse.find({ labId })
-    .populate('protocolId', 'title')
+    //.populate('protocolId', 'title')
     .populate('userId', 'username')
     .sort({ name: 1 });
 }
@@ -143,7 +143,7 @@ async function getAvailableMice(labId) {
   }
 
   return await Mouse.find({ labId, availability: true })
-    .populate('protocolId', 'title')
+    //.populate('protocolId', 'title')
     .populate('userId', 'username')
     .sort({ name: 1 });
 }
