@@ -105,11 +105,6 @@ async function mouseInfo(name) {
     throw new Error(ERRORS.MISSING_FIELDS);
   }
 
-  // Validate mouse ID
-  if (!mouse) {
-    throw new Error(ERRORS.MOUSE_NOT_FOUND);
-  }
-
   // Find mouse
   const mouse = await Mouse.findOne({ name })
     .populate('labId', 'name')
@@ -118,6 +113,11 @@ async function mouseInfo(name) {
     .populate('motherId', 'name')
     .populate('fatherId', 'name')
     .populate('littermates', 'name');
+
+  // Validate mouse ID
+  if (!mouse) {
+    throw new Error(ERRORS.MOUSE_NOT_FOUND);
+  }
 
   return mouse;
 }
