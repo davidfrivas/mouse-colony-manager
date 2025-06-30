@@ -44,6 +44,6 @@ app.use('/user', userRoutes);
 app.use('/log-entry', logEntryRoutes);
 app.use('/mouse', mouseRoutes);
 
-// Start the server on specified port (default to 3000 if not desfined)
-const PORT = process.env.PORT || 3000;
+// Start the server on specified port
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
