@@ -9,20 +9,21 @@
  * @throws {object} - The parsed JSON error response if the request fails.
  */
 export async function fetchData(route = '', data = {}, methodType) {
-  // Send the HTTP request to the specified route with method and headers
-  const response = await fetch(`http://localhost:5000${route}`, {
-    method: methodType, // HTTP method (POST, GET, etc.)
+  const response = await fetch(route, {
+    method: methodType,
     headers: {
-      'Content-Type': 'application/json' // Let server know we're sending JSON
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data) // Convert JavaScript object to JSON string
+    body: JSON.stringify(data)
   });
 
-  // If the response status is 2xx (success), return the parsed JSON
   if (response.ok) {
-    return await response.json();
+    // Check if response has content before parsing JSON
+    const text = await response.text();
+    return text ? JSON.parse(text) : {};
   } else {
-    // If the response is not successful, throw the parsed error JSON
-    throw await response.json();
+    // Handle error responses that might be empty
+    const text = await response.text();
+    throw text ? JSON.parse(text) : { message: `HTTP ${response.status}: ${response.statusText}` };
   }
 }
