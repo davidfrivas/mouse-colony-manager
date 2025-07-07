@@ -17,6 +17,13 @@ mongoose.connect(process.env.dbURL)
 
 const app = express(); // Create instance of Express app
 
+// Add logging middleware first
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  console.log('Body:', req.body);
+  next();
+});
+
 // Middleware to parse incoming JSON requests
 app.use(express.json());
 
@@ -34,16 +41,27 @@ app.use(function (req, res, next) {
 // Serve static files (CSS, JS, images, etc.) from the 'public' directory
 app.use(express.static(path.join(__dirname, "public")));
 
+// Add test route after middleware
+app.get('/test', (req, res) => {
+  console.log('Test route hit!');
+  res.json({ message: 'Server is working!' });
+});
+
 // Serve the index.html file when root URL is accessed
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "public", "index.html"))
 );
+
+// Add debug logging for routes
+console.log("Setting up routes...");
 
 // Use route handlers for /user and /log-entry paths
 app.use('/user', userRoutes);
 app.use('/log-entry', logEntryRoutes);
 app.use('/mouse', mouseRoutes);
 
+console.log("Routes set up complete");
+
 // Start the server on specified port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
