@@ -26,14 +26,22 @@ const Profile = () => {
 
   // Get user data from localStorage
   useEffect(() => {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const parsedUser = JSON.parse(userData);
-      setUser(parsedUser);
-      loadUserMice(parsedUser._id);
-    } else {
+    try {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+        loadUserMice(parsedUser._id);
+      } else {
+        setLoading(false);
+        setMessage('Please log in to view your profile');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      localStorage.removeItem('user'); // Remove corrupted data
       setLoading(false);
-      setMessage('Please log in to view your profile');
+      setMessage('Please log in again');
       setMessageType('error');
     }
   }, []);
@@ -41,13 +49,16 @@ const Profile = () => {
   // Load mice created by the user
   const loadUserMice = async (userId) => {
     try {
+      setLoading(true);
+      const response = await fetchData(`/mouse/user/${userId}`, {}, "GET");
+      setMice(response.mice || []);
       setLoading(false);
-      setMice([]);
     } catch (error) {
       console.error('Error loading mice:', error);
       setLoading(false);
-      setMessage('Error loading your mice');
+      setMessage('Error loading your mice: ' + (error.message || 'Unknown error'));
       setMessageType('error');
+      // Don't clear mice on error
     }
   };
 
