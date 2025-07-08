@@ -31,6 +31,7 @@ const mouseSchema = new mongoose.Schema({
 mouseSchema.index({ name: 1, labId: 1 });
 mouseSchema.index({ labId: 1, availability: 1 });
 mouseSchema.index({ protocolId: 1 });
+mouseSchema.index({ userId: 1 }); // Add index for userId queries
 
 const Mouse = mongoose.model("Mouse", mouseSchema); // Create model of schema
 
@@ -135,6 +136,21 @@ async function getMiceByLab(labId) {
     .sort({ name: 1 });
 }
 
+// READ all mice created by a specific user
+async function getMiceByUser(userId) {
+  // Validate user ID
+  if (!userId || !validateObjectId(userId)) {
+    throw new Error(ERRORS.INVALID_ID);
+  }
+
+  return await Mouse.find({ userId })
+    .populate('userId', 'username email')
+    .populate('motherId', 'name')
+    .populate('fatherId', 'name')
+    .populate('littermates', 'name')
+    .sort({ createdAt: -1 }); // Most recent first
+}
+
 // READ available mice for a lab
 async function getAvailableMice(labId) {
   // Validate lab ID
@@ -210,6 +226,7 @@ module.exports = {
   mouseInfo,
   getMouse, 
   getMiceByLab,
+  getMiceByUser,
   getAvailableMice,
   updateMouseAvailability, 
   updateMouseNotes,

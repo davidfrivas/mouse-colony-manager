@@ -48,6 +48,29 @@ router
     }
   })
 
+  // READ all mice created by a specific user
+  .get('/user/:userId', async (req, res) => {
+    try {
+      const { userId } = req.params;
+
+      // Input validation
+      if (!userId) {
+        return res.status(400).send({ message: 'User ID is required'});
+      }
+
+      const mice = await Mouse.getMiceByUser(userId);
+
+      res.status(200).send({
+        message: `Found ${mice.length} mice for user`,
+        mice: mice
+      });
+    }
+    catch(error) {
+      const status = getErrorStatus(error);
+      res.status(status).send({ message: error.message });
+    }
+  })
+
   // READ mouse info by name
   .get('/name/:name', async (req, res) => {
     try {
