@@ -27,11 +27,11 @@ router
     try {
       const mouseData = req.body;
 
-      // Input validation for required fields
-      const { name, sex, genotype, strain, birthDate, labId, protocolId, userId } = mouseData;
-      if (!name || !sex || !genotype || !strain || !birthDate || !labId || !protocolId || !userId) {
+      // Input validation for required fields only (temporarily remove labId and protocolId)
+      const { name, sex, genotype, strain, birthDate, userId } = mouseData;
+      if (!name || !sex || !genotype || !strain || !birthDate || !userId) {
         return res.status(400).send({ 
-          message: 'name, sex, genotype, strain, birthDate, labId, protocolId, and userId are required' 
+          message: 'name, sex, genotype, strain, birthDate, and userId are required' 
         });
       }
 
